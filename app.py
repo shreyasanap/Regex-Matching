@@ -1,27 +1,44 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import re
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route('/')
 def index():
-    if request.method == "POST":
-        test_string = request.form.get("test_string")
-        regex_pattern = request.form.get("regex_pattern")
-        matched_strings = perform_regex_matching(test_string, regex_pattern)
-        return redirect(url_for("results", test_string=test_string, regex_pattern=regex_pattern, matched_strings=matched_strings))
-    return render_template("index.html")
+    # Home page with links to the email validator and regex matcher
+    return render_template('index.html')
 
-@app.route("/results")
-def results():
-    test_string = request.args.get("test_string")
-    regex_pattern = request.args.get("regex_pattern")
-    matched_strings = request.args.get("matched_strings").split(",") if request.args.get("matched_strings") else []
-    return render_template("results.html", test_string=test_string, regex_pattern=regex_pattern, matched_strings=matched_strings)
+@app.route('/regex_result', methods=['GET', 'POST'])
+def regex_result():
+    results = None
+    messages = None
+    if request.method == 'POST':
+        pattern = request.form.get('pattern')
+        text = request.form.get('text')
+        if pattern and text:
+            results = re.findall(pattern, text)
+            if not results:
+                messages = 'No matches found.'
+    return render_template('results.html', results=results, messages=messages)
 
-def perform_regex_matching(test_string, regex_pattern):
-    matches = re.findall(regex_pattern, test_string)
-    return matches
+@app.route('/validate_email', methods=['GET', 'POST'])
+def validate_email():
+    message = ''
+    if request.method == 'POST':
+        email = request.form.get('email')
+        if email:
+            if re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', email):
+                message = 'Valid email address!'
+            else:
+                message = 'Invalid email address!'
+        else:
+            message = 'Email address not provided!'
+    return render_template('email_validation.html', message=message)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+
+if __name__ == '__main__':
+    app.run(debug=True, host="0.0.0.0")
+
+
+
+

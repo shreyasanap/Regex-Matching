@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Validation</title>
+<style>
+    body {
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    h1 {
+        text-align: center;
+        color: #007bff;
+        margin-top: 50px;
+    }
+    form {
+        text-align: center;
+        margin-top: 50px;
+    }
+    input[type="text"] {
+        width: 300px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .message {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .message h2 {
+        color: #28a745;
+    }
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+    <h1>Email Validation</h1>
+    <form method="POST">
+        <input type="text" name="email" placeholder="Enter your email" required><br>
+        <button type="submit">Validate Email</button><br>
+    </form>
+    {% if message %}
+        <div class="message">
+            <h2>{{ message }}</h2><br>
+        </div>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>
