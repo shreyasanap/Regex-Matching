@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Regex Matching Results</title>
+</head>
+<body>
+    <header>
+        <h1>Regex Matching Results</h1>
+    </header>
+    <main>
+        <p>Test String: {{ test_string }}</p>
+        <p>Regex Pattern: {{ regex_pattern }}</p>
+        {% if matched_strings %}
+            <h2>Matches:</h2>
+            <ul>
+                {% for match in matched_strings %}
+                    <li>{{ match }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found.</p>
+        {% endif %}
+        <a href="/">Back to Home</a>
+    </main>
+</body>
+</html>
